@@ -52,9 +52,6 @@ class SortedTable:
     # REturn positon !!!
 
 
-def scanner():
-    pass
-
 if __name__ == '__main__':
     first = Pair('A')
     second = Pair('B')
