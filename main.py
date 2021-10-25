@@ -1,3 +1,5 @@
+from scanner import Scanner
+
 class Pair:
     def __init__(self, key):
         self.value = 0
@@ -63,4 +65,7 @@ if __name__ == '__main__':
     listaSortata.addPair(third)
     listaSortata.addPair(forth)
     print(listaSortata)
+
+    scaner = Scanner(open('p1.txt'))
+
     print('Hello World')

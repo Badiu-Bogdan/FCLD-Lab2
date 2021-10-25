@@ -1,0 +1,12 @@
+var result;
+result <= 0;
+var number;
+read number;
+while *number not 0* then
+{
+	result <= result + number;
+	read number;
+}
+	
+show "The result is=";
+show number;
