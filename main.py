@@ -1,71 +1,33 @@
 from scanner import Scanner
-
-class Pair:
-    def __init__(self, key):
-        self.value = 0
-        self.key = key
-
-    def getValue(self):
-        return self.value
-
-    def getKey(self):
-        return self.key
-
-    def setValue(self, newValue):
-        self.value = newValue
-
-    def setKey(self, newKey):
-        self.key = newKey
-
-    def __str__(self):
-        return "Pair: Key={self.key}".format(self=self)
-
-
-class SortedTable:
-    def __init__(self):
-        self.list = []
-
-    def addPair(self, pair):
-        # Here i should check if the key that I wanna add doesn't already exist in the list.
-        for i in range(len(self.list)):
-            if self.list[i].getKey() == pair.getKey():
-                return
-            if self.list[i].getKey() > pair.getKey():
-                new_list = list[0:i]
-                new_list.append(pair)
-                new_list.append(self.list[i + i:len(self.list)])
-                return
-        self.list.append(pair)
-
-    def checkIfElementExist(self, pair):
-        for i in range(len(self.list)):
-            if self.list[i].getValue() == pair.getValue():
-                return i
-            else:
-                return -1
-
-    def __str__(self):
-        string = 'List is: \n'
-        for i in range(len(self.list)):
-            string = string + str(self.list[i]) + ' Pos:' + str(i) + '\n'
-
-        return string
-
-    # REturn positon !!!
-
+from pair import Pair
 
 if __name__ == '__main__':
-    first = Pair('A')
-    second = Pair('B')
-    third = Pair('C')
-    forth = Pair('C')
-    listaSortata = SortedTable()
-    listaSortata.addPair(first)
-    listaSortata.addPair(second)
-    listaSortata.addPair(third)
-    listaSortata.addPair(forth)
-    print(listaSortata)
+    myScanner = Scanner(open("p1.txt"), 'out.txt', 'reservedWords.txt')
+    currentToken = myScanner.detectNextToken()
+    error = 0
+    while currentToken:
+        tokenClassified = myScanner.determineCodification(myScanner.codifyToken(currentToken))
+        if tokenClassified == 'lexical error':
+            print("LEXICAL ERROR AT LINE " + str(myScanner.lineNumber) + ' TOKEN ' + str(myScanner.tokenNumber))
+            error = 1
+        if tokenClassified == 'reserved-word' or tokenClassified == 'operator' or tokenClassified == 'separator':
+            myScanner.getPif(currentToken, 0)
+        else:
+            if tokenClassified == 'identifier' or tokenClassified == 'constant':
+                pair = Pair(currentToken)
+                myScanner.getPif(currentToken, myScanner.symbolTable.checkIfElementExist(pair))
+        myScanner.prevToken = myScanner.codifyToken(currentToken)
+        currentToken = myScanner.detectNextToken()
 
-    scaner = Scanner(open('p1.txt'))
+    f = open("ST.out", "w")
+    for element in myScanner.symbolTable.getList():
+        f.write(element.getKey() + ' ' + str(myScanner.symbolTable.checkIfElementExist(element)) + '\n')
+    f.close()
 
-    print('Hello World')
+    f = open("PIF.out", "w")
+    for el in myScanner.pif:
+        f.write(el.getKey() + ' ' + str(el.getValue()) + '\n')
+    f.close()
+
+    if not error:
+        print("corect lexical")

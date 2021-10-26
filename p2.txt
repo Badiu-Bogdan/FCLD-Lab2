@@ -1,13 +1,27 @@
-var result;
-result <= 0;
+var result ;
+result <= 0 ;
 
-while*true* then
+while * true * then
 {
-	if a is 0 then {result <= a; break;}
-	if b is 0 then {result <= b; break;}
+	if a is 0 then
+	{
+	result <= a ;
+	break ;
+	}
+	if b is 0 then
+	{
+	result <= b ;
+	break ;
+	}
 
-	if a is b then {result <= a; break;}
+	if a is b then
+	{
+	result <= a ;
+	break ;
+	}
 
-	if a > b then a <= a-b;
-	else b <= b-a;
+	if a > b then
+	a <= a - b ;
+	else
+	b <= b - a ;
 }

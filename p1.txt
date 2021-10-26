@@ -1,8 +1,13 @@
-var result;
-result <= 0;
+var result ;
+var a ;
+var b ;
+var c ;
+a <= 2 ;
+b <= 3 ;
+c <= 4 ;
 if a > b and a > c then
-	result <= a;
+result <= a ;
 if b > a and b > c then
-	result <= b;
+result <= b ;
 if c > a and c > b then
-	result <= c;
+result <= c ;
